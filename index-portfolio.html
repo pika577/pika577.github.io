@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jude Rethish — Developer & Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --surface: #ffffff;
+    --border: #e2ddd7;
+    --border-strong: #c8c2ba;
+    --accent: #003168;
+    --accent-mid: #1a5296;
+    --accent-light: #e8eef6;
+    --gold: #b08d3a;
+    --gold-light: #f5edda;
+    --text: #1a1816;
+    --text-mid: #4a4540;
+    --muted: #8a847e;
+    --card: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3rem;
+    height: 64px;
+    background: rgba(248,247,244,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    color: var(--text-mid);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 4px;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent-mid) !important; color: #fff !important; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5rem 4rem;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.4rem;
+    opacity: 0;
+    animation: fadeUp 0.6s forwards 0.1s;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.6s forwards 0.25s;
+  }
+
+  .hero-title {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--accent-mid);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s forwards 0.4s;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-tagline {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s forwards 0.55s;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s forwards 0.7s;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn-primary:hover { background: var(--accent-mid); border-color: var(--accent-mid); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .btn-outline:hover { background: var(--accent-light); }
+
+  /* HERO RIGHT — credential panel */
+  .hero-right {
+    opacity: 0;
+    animation: fadeUp 0.7s forwards 0.5s;
+  }
+
+  .credential-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 20px rgba(0,49,104,0.06);
+  }
+
+  .credential-heading {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.4rem;
+  }
+
+  .credential-list { list-style: none; }
+  .credential-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-mid);
+  }
+  .credential-list li:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .cred-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .cred-icon svg { width: 14px; height: 14px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  .cred-label { font-weight: 600; color: var(--text); font-size: 0.84rem; }
+  .cred-sub { font-size: 0.77rem; color: var(--muted); }
+
+  /* LAYOUT */
+  .section-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 5.5rem 3rem;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+    max-width: 620px;
+  }
+
+  .about-text p {
+    color: var(--text-mid);
+    margin-bottom: 1rem;
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .stat-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  /* SKILLS STRIP */
+  .skills-strip {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .skills-heading {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 3px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid rgba(0,49,104,0.15);
+    letter-spacing: 0.03em;
+  }
+
+  /* EXPERIENCE TIMELINE */
+  .timeline { position: relative; }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 0 2rem;
+    margin-bottom: 0;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .tl-item.visible { opacity: 1; transform: translateY(0); }
+
+  .tl-left {
+    padding-top: 0.15rem;
+    text-align: right;
+  }
+
+  .tl-period {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+
+  .tl-right {
+    padding-bottom: 2.5rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--border);
+    position: relative;
+  }
+
+  .tl-right::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 7px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+
+  .tl-item:last-child .tl-right { padding-bottom: 0; }
+
+  .tl-role {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+    line-height: 1.4;
+  }
+
+  .tl-org {
+    font-size: 0.78rem;
+    color: var(--accent-mid);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .tl-desc {
+    font-size: 0.84rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin-bottom: 0.75rem;
+  }
+
+  .tl-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .tag {
+    font-size: 0.67rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    color: var(--text-mid);
+  }
+
+  .tag.blue {
+    background: var(--accent-light);
+    border-color: rgba(0,49,104,0.2);
+    color: var(--accent);
+  }
+
+  .tag.gold {
+    background: var(--gold-light);
+    border-color: rgba(176,141,58,0.25);
+    color: var(--gold);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    position: relative;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s, transform 0.5s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .project-card.visible { opacity: 1; transform: translateY(0); }
+
+  .project-card:hover {
+    border-color: var(--accent-mid);
+    box-shadow: 0 4px 24px rgba(0,49,104,0.09);
+    transform: translateY(-2px);
+  }
+
+  .project-card.featured {
+    grid-column: span 1;
+    border-left: 3px solid var(--accent);
+  }
+
+  .project-status {
+    display: inline-block;
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+  }
+
+  .status-progress {
+    background: var(--gold-light);
+    color: var(--gold);
+    border: 1px solid rgba(176,141,58,0.3);
+  }
+
+  .status-done {
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid rgba(0,49,104,0.2);
+  }
+
+  .project-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-size: 0.83rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin-bottom: 1.1rem;
+  }
+
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+  /* CONTACT */
+  #contact .section-wrap { text-align: center; }
+
+  .contact-box {
+    background: var(--accent);
+    border-radius: 12px;
+    padding: 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-box::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    pointer-events: none;
+  }
+
+  .contact-box::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+    pointer-events: none;
+  }
+
+  .contact-eyebrow {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.8rem;
+  }
+
+  .contact-heading {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .contact-sub {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 400px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+
+  .contact-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-white {
+    background: #fff;
+    color: var(--accent);
+    border: 1.5px solid #fff;
+    font-weight: 600;
+  }
+  .btn-white:hover { background: rgba(255,255,255,0.9); }
+
+  .btn-ghost-white {
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+    border: 1.5px solid rgba(255,255,255,0.35);
+  }
+  .btn-ghost-white:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 3rem;
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  footer a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  footer a:hover { color: var(--accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    #hero {
+      grid-template-columns: 1fr;
+      padding: 7rem 1.5rem 3rem;
+      gap: 2.5rem;
+    }
+    .hero-right { display: none; }
+    .section-wrap { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; }
+    .tl-item { grid-template-columns: 1fr; gap: 0; }
+    .tl-left { text-align: left; margin-bottom: 0.3rem; }
+    .tl-right { padding-left: 1rem; }
+    .contact-box { padding: 2.5rem 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Jude Rethish</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="https://github.com/pika577" target="_blank">GitHub</a></li>
+    <li><a class="nav-cta" href="#contact">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <h1 class="hero-name">Jude<br/>Rethish</h1>
+    <p class="hero-tagline">High school developer with hands-on experience in AI research, market analysis, and large-scale event leadership — passionate about building technology that supports rigorous, data-driven decision-making.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">View My Work</a>
+      <a class="btn btn-outline" href="https://github.com/pika577" target="_blank">GitHub Profile</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="credential-card">
+      <div class="credential-heading">Key Highlights</div>
+      <ul class="credential-list">
+        <li>
+          <div class="cred-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <div class="cred-label">AI Research Intern</div>
+            <div class="cred-sub">Appli AI — RAG pipeline development</div>
+          </div>
+        </li>
+        <li>
+          <div class="cred-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div class="cred-label">Market Research Intern</div>
+            <div class="cred-sub">Financial Interview Coach — equities & commodities</div>
+          </div>
+        </li>
+        <li>
+          <div class="cred-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <div>
+            <div class="cred-label">Founder, Business Club</div>
+            <div class="cred-sub">30 members · 3 ACES finalist teams</div>
+          </div>
+        </li>
+        <li>
+          <div class="cred-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div>
+            <div class="cred-label">Ontario Economy Simulator</div>
+            <div class="cred-sub">JavaScript · Chart.js · Stats Canada API</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-eyebrow">About</div>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid">
+      <div>
+        <div class="about-text">
+          <p>I'm a high school developer based in Ottawa with a genuine interest in the intersection of technology and economics. My passion centres on building software that makes complex data interpretable — particularly in financial and policy contexts where rigorous analysis underpins real decisions.</p>
+          <p>I've explored this through an AI research internship at Appli AI, market analysis work at a financial coaching firm, and an ongoing personal project that visualizes Ontario's macroeconomic indicators using live Statistics Canada data. I'm drawn to problems where engineering and analytical thinking work together.</p>
+          <p>Outside of technical work, I've spent five years in a leadership role within a cadet squadron and founded my school's business club — experiences that have reinforced my ability to take initiative, communicate clearly, and follow through under pressure.</p>
+        </div>
+        <div class="skills-strip">
+          <div class="skills-heading">Technical Skills</div>
+          <div class="skills-list">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">HTML / CSS</span>
+            <span class="skill-tag">Chart.js</span>
+            <span class="skill-tag">RAG</span>
+            <span class="skill-tag">Git</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="section-eyebrow">Experience</div>
+    <h2 class="section-title">What I've Done</h2>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-period">2026</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Sponsorship Executive</div>
+          <div class="tl-org">Redshifted / Catalysts Hackathon · Ottawa</div>
+          <div class="tl-desc">Helped organize Catalysts, Canada's first hardware-focused hackathon, held at the University of Ottawa. Led outreach to regional businesses and independently raised nearly $6,000 in sponsorships to fund workshops and competitions for 100 student participants.</div>
+          <div class="tl-tags">
+            <span class="tag blue">Event Leadership</span>
+            <span class="tag blue">Sponsorship</span>
+            <span class="tag gold">$6K Raised</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-period">2025</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Research Intern</div>
+          <div class="tl-org">Appli AI</div>
+          <div class="tl-desc">Conducted research into positive candidate signal factors to inform the design of a RAG (Retrieval-Augmented Generation) pipeline used in Appli AI's candidate evaluation software. The company has since been recognized in the Accelerator League of Innovators.</div>
+          <div class="tl-tags">
+            <span class="tag blue">AI Research</span>
+            <span class="tag blue">RAG / NLP</span>
+            <span class="tag">Machine Learning</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-period">2024</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Market Research Intern</div>
+          <div class="tl-org">Financial Interview Coach</div>
+          <div class="tl-desc">Produced entry-level reports on leading and lagging indicators across equities and commodities markets. Research directly supported coaching sessions for finance graduates and contributed to investment decision-making discussions.</div>
+          <div class="tl-tags">
+            <span class="tag gold">Finance</span>
+            <span class="tag gold">Market Research</span>
+            <span class="tag">Economics</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-period">2024 – 2026</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Founder &amp; President</div>
+          <div class="tl-org">Business Club — Merivale High School</div>
+          <div class="tl-desc">Founded and grew a school business club to a peak of 30 members. Secured external funding to compete in international ACES business competitions, producing three finalist teams across multiple events.</div>
+          <div class="tl-tags">
+            <span class="tag blue">Leadership</span>
+            <span class="tag">30 Members</span>
+            <span class="tag">3 Finalist Teams</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-period">2024 – 2025</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Pharmacy Assistant</div>
+          <div class="tl-org">High-volume retail pharmacy</div>
+          <div class="tl-desc">Supported daily operations serving approximately 200 customers. Responsibilities included medication preparation, package delivery management, and handling the full volume of customer inquiries in a fast-paced environment.</div>
+          <div class="tl-tags">
+            <span class="tag">Operations</span>
+            <span class="tag">~200 Daily Customers</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-period">2023 – 2025</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Volunteer Organizer</div>
+          <div class="tl-org">World Multicultural Festival</div>
+          <div class="tl-desc">Managed logistics for three festivals with 300–1,000 participants each. Coordinated performer schedules, directed stall workers and government liaisons, and handled day-of contingencies across multiple concurrent events.</div>
+          <div class="tl-tags">
+            <span class="tag blue">Event Management</span>
+            <span class="tag">1,000+ Participants</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-period">2021 – 2026</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Administrative Leader</div>
+          <div class="tl-org">872 Kiwanis Cadet Squadron</div>
+          <div class="tl-desc">Served in a five-year administrative leadership role within a squadron of approximately 250 cadets. Managed group assignments, maintained attendance records across weekly training nights, and ensured compliance with required documentation.</div>
+          <div class="tl-tags">
+            <span class="tag blue">Leadership</span>
+            <span class="tag">5 Years</span>
+            <span class="tag">250 Cadets</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-eyebrow">Projects</div>
+    <h2 class="section-title">What I'm Building</h2>
+    <div class="projects-grid">
+
+      <div class="project-card featured" style="grid-column: 1 / -1;">
+        <span class="project-status status-progress">In Progress</span>
+        <div class="project-name">Ontario Economy Simulator</div>
+        <div class="project-desc">An interactive web application pulling real Statistics Canada data to visualize key Ontario economic indicators — GDP, unemployment, and household consumption. Includes a circular flow diagram illustrating the relationships between Households, Firms, Government, and the Financial Sector. Designed to make macroeconomic data accessible and visually interpretable.</div>
+        <div class="project-stack">
+          <span class="tag blue">JavaScript</span>
+          <span class="tag blue">Chart.js</span>
+          <span class="tag blue">Stats Canada API</span>
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">GitHub Pages</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-box">
+      <div class="contact-eyebrow">Contact</div>
+      <h2 class="contact-heading">Let's Connect</h2>
+      <div class="contact-actions">
+        <a class="btn btn-white" href="mailto:juderethish@gmail.com">Send an Email</a>
+        <a class="btn btn-ghost-white" href="https://github.com/pika577" target="_blank">github.com/pika577</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Jude Rethish</span>
+  <span>Ottawa, Ontario · <a href="https://github.com/pika577" target="_blank">GitHub</a></span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.tl-item, .project-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 60}ms`;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
